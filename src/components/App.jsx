@@ -73,6 +73,21 @@ class App extends React.Component {
       contacts: prevState.contacts.filter(contact => contact.id !== idToDelete),
     }));
   };
+
+// localStorage
+
+  componentDidMount() {
+    const contactsSaved = localStorage.getItem("contacts");
+      if (contactsSaved) {
+        this.setState ({ contacts: JSON.parse(contactsSaved) });
+      }
+    }
+  
+  componentDidUpdate(prevProps, prevState) {
+      if (prevState.contacts !== this.state.contacts) {
+        localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+      }
+    }
 }
 
 export default App;
